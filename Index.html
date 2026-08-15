@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇳 Happy Independence Day 2026</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#FF9933,#ffffff,#138808);
+background-size:300% 300%;
+animation:bg 12s ease infinite;
+overflow-x:hidden;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.flag{
+animation:wave 3s ease-in-out infinite;
+transform-origin:left;
+}
+
+@keyframes wave{
+0%,100%{transform:rotate(0deg);}
+50%{transform:rotate(4deg);}
+}
+
+.glow{
+animation:glow 2s infinite;
+}
+
+@keyframes glow{
+0%,100%{text-shadow:0 0 15px #fff;}
+50%{text-shadow:0 0 40px #ff9933;}
+}
+
+.btn{
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-4px) scale(1.05);
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<section class="min-h-screen flex items-center justify-center px-6">
+
+<div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10 max-w-3xl text-center">
+
+<div class="text-8xl flag mb-4">
+🇮🇳
+</div>
+
+<h1 class="text-5xl md:text-6xl font-extrabold glow text-orange-600">
+Happy Independence Day
+</h1>
+
+<h2 class="text-2xl font-bold text-green-700 mt-3">
+15 August 2026
+</h2>
+
+<p class="mt-8 text-gray-700 leading-8 text-lg">
+आज हम उन सभी वीर शहीदों को नमन करते हैं जिन्होंने
+अपना सर्वस्व भारत माता के लिए समर्पित कर दिया।
+
+<br><br>
+
+आइए हम सब मिलकर एक मजबूत, ईमानदार,
+स्वच्छ और विकसित भारत बनाने का संकल्प लें।
+
+</p>
+
+<h2 class="text-3xl font-bold mt-8 text-blue-900">
+🇮🇳 जय हिन्द 🇮🇳
+</h2>
+
+<div id="clock" class="mt-6 text-xl font-bold text-gray-700"></div>
+
+<div class="mt-10 flex justify-center gap-4 flex-wrap">
+
+<button onclick="sharePage()"
+class="btn bg-orange-500 text-white px-6 py-3 rounded-full font-bold">
+📤 Share Wishes
+</button>
+
+<button onclick="location.reload()"
+class="btn bg-green-600 text-white px-6 py-3 rounded-full font-bold">
+🎆 Celebrate Again
+</button>
+
+</div>
+
+<p class="mt-10 text-sm text-gray-600">
+Proud To Be An Indian ❤️
+</p>
+
+</div>
+
+</section>
+
+<script>
+
+// Clock
+
+setInterval(()=>{
+let d=new Date();
+document.getElementById("clock").innerHTML=d.toLocaleTimeString();
+},1000);
+
+
+// Share
+
+function sharePage(){
+
+if(navigator.share){
+
+navigator.share({
+title:"Happy Independence Day 🇮🇳",
+text:"Happy Independence Day 🇮🇳 Jai Hind!",
+url:location.href
+});
+
+}else{
+
+alert("Share option not supported.");
+
+}
+
+}
+
+
+// Fireworks
+
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+function Particle(){
+
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height/2;
+this.radius=Math.random()*4+2;
+
+this.dx=(Math.random()-0.5)*6;
+this.dy=(Math.random()-0.5)*6;
+
+this.life=100;
+
+this.color=["#FF9933","#ffffff","#138808","#000080"][Math.floor(Math.random()*4)];
+
+}
+
+Particle.prototype.update=function(){
+
+this.x+=this.dx;
+this.y+=this.dy;
+
+this.life--;
+
+}
+
+Particle.prototype.draw=function(){
+
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+ctx.fillStyle=this.color;
+ctx.fill();
+
+}
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+if(Math.random()<0.35){
+
+for(let i=0;i<20;i++)
+particles.push(new Particle());
+
+}
+
+particles.forEach((p,index)=>{
+
+p.update();
+p.draw();
+
+if(p.life<=0){
+
+particles.splice(index,1);
+
+}
+
+});
+
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
